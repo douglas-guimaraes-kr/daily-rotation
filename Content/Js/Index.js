@@ -78,7 +78,12 @@ function getFacilitator() {
     }
     else {
         unloadSpinner();
-        alert("No facilitators defined. It's so cold here... :(");
+
+        Swal.fire(
+            "It's cold here... :(",
+            "Is anyone there?",
+            'question'
+          )
     }
 }
 
