@@ -77,7 +77,7 @@ function getFacilitator() {
           unloadSpinner();
     }
     else {
-        hideFacilitator();
+        unloadSpinner();
         alert("No facilitators defined. It's so cold here... :(");
     }
 }
