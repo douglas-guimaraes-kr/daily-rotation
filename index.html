@@ -14,6 +14,8 @@
         integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
         crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="./Content/Js/Index.js"></script>
 </head>
 
@@ -25,38 +27,23 @@
         </div>
     </nav>
     <div class="container">
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col">
-                <div class="alert alert-info">
+        <div class="row justify-content-center">&nbsp;</div>
+        <div class="row justify-content-center">
+            <div class="col col-md-6">
+                <div class="alert alert-primary">
                     Facilitators
                 </div>
-                <div id="facilitatorsList">
+                <div id="facilitatorsList" style="padding: 5px;">
 
                 </div>
                 <hr>
                 <div class="text-end">
-
-                    <button type="button" class="btn btn-success" onclick="facilitatorOnClick()">Define</button>
+                    <button id="btnDefine" class="btn btn-success" type="button" onclick="facilitatorOnClick()" style="width: 100px;">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner" style="display: none;"  ></span>
+                        Define
+                    </button>
                 </div>
-
-            </div>
-            <div class="col">
-                <div class="alert alert-success">
-                    Chosen
-                </div>
-                <div id="choosen">
-                    <center>
-                        <div id="spinner" class="text-center" style="display: none;">
-                            <div class="spinner-border text-success" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                        <div id="facilitatorCard" style="width: 18rem; display: none;">
-                            <h5 class="card-title" id="facilitator"></h5>
-                        </div>
-                    </center>
-                </div>
+                
             </div>
         </div>
     </div>

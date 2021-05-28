@@ -41,7 +41,7 @@ function init() {
 
 function facilitatorOnClick() {
     
-    loadFacilitator();
+    loadSpinner();
 
     window.setTimeout(getFacilitator, 500);
 
@@ -63,8 +63,18 @@ function getFacilitator() {
     if (facilitatorsArray.length > 0) {
         var randomNumber = Math.floor(Math.random() * facilitatorsArray.length);
         var facilitator = facilitatorsArray[randomNumber];
-        document.getElementById("facilitator").innerText = facilitator;
-        unloadFacilitator();
+
+        var title = 'Congratulations, ' + facilitator + '!';
+        var message = 'You are the chosen one for this facilitation!';
+
+        Swal.fire({
+            title: title,
+            html: message,
+            icon: 'success',
+            confirmButtonText: 'Cool!'
+          });
+
+          unloadSpinner();
     }
     else {
         hideFacilitator();
@@ -72,17 +82,12 @@ function getFacilitator() {
     }
 }
 
-function loadFacilitator(){
-    document.getElementById("facilitatorCard").style.display = "none";
-    document.getElementById("spinner").style.display = "inline";
+function loadSpinner(){
+    document.getElementById("btnDefine").setAttribute("disabled", true);
+    document.getElementById("spinner").style.display = "inline-flex";
 }
 
-function unloadFacilitator(){
-    document.getElementById("facilitatorCard").style.display = "inline";
-    document.getElementById("spinner").style.display = "none";
-}
-
-function hideFacilitator(){
-    document.getElementById("facilitatorCard").style.display = "none";
+function unloadSpinner(){
+    document.getElementById("btnDefine").removeAttribute("disabled");
     document.getElementById("spinner").style.display = "none";
 }
