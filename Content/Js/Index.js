@@ -56,7 +56,7 @@ function getFacilitator() {
         var facilitator = facilitatorsArray[randomNumber];
 
         var title = 'Congratulations, ' + facilitator + '!';
-        var message = 'You are the chosen one for this facilitation!';
+        var message = 'You are the chosen one!';
 
         Swal.fire({
             title: title,
