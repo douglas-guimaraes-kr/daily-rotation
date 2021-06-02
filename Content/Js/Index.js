@@ -1,37 +1,37 @@
-
+// Load Page
 function init() {
     var facilitatorsList = [
-        "Douglas",
-        "Pavlina",
-        "Reginaldo",
-        "Livia",
-        "Alisson",
-        "Cristian",
-        "Brandon",
-        "Djeefther",
-        "Nil",
+        { Name: "Douglas", Role: "dev" },
+        { Name: "Pavlina", Role: "ux" },
+        { Name: "Reginaldo", Role: "sm" },
+        { Name: "Livia", Role: "dev" },
+        { Name: "Alisson", Role: "dev" },
+        { Name: "Cristian", Role: "dev" },
+        { Name: "Brandon", Role: "tl" },
+        { Name: "Djeefther", Role: "dev" },
+        { Name: "Nil", Role: "dev" }
     ];
 
-    facilitatorsList.sort();
+    facilitatorsList.sort(SortByName);
 
     var facilitatorsDiv = document.getElementById("facilitatorsList");
     facilitatorsList.forEach((item, index) => {
 
         //input checkbox
-        var input = document.createElement('input');
-        input.setAttribute("type", "checkbox");
-        input.checked = true;
-        input.defaultValue = item;
-        input.style.marginRight = "5";
-
-        //label
-        var label = document.createElement('label');
-        label.innerText = item;
+        var button = document.createElement('button');
+        $(button).css("width", 100);
+        $(button).css("margin-bottom", 20);
+        $(button).css("cursor", "pointer");
+        $(button).addClass("btn btn-primary");
+        $(button).html(item.Name);
+        $(button).prop("role", item.Role);
+        $(button).click(btnFacilitatorButtonClick);
 
         //div
         var div = document.createElement('div');
-        div.appendChild(input);
-        div.appendChild(label);
+        $(div).addClass("col col-md-3");
+        div.appendChild(button);
+        // div.appendChild(label);
 
         // final div
         facilitatorsDiv.appendChild(div);
@@ -39,25 +39,17 @@ function init() {
     });
 }
 
-function facilitatorOnClick() {
-    
-    loadSpinner();
-
-    window.setTimeout(getFacilitator, 500);
-
-    
-}
-
+// Main Functionality: define facilitator based on the configuration
+// Called in the btnDefineFacilitator click event
 function getFacilitator() {
-    let inputs = document
-        .getElementById("facilitatorsList")
-        .querySelectorAll('input');
+    let buttons = getAllButtons();
 
     var facilitatorsArray = [];
-    inputs.forEach((item, index) => {
-        if (item.checked)
-            facilitatorsArray.push(item.defaultValue);
 
+    buttons.forEach((item, index) => {
+        var isEnabled = $(item).hasClass("btn-primary");
+        if (isEnabled)
+            facilitatorsArray.push($(item).text());
     });
 
     if (facilitatorsArray.length > 0) {
@@ -72,9 +64,9 @@ function getFacilitator() {
             html: message,
             icon: 'success',
             confirmButtonText: 'Cool!'
-          });
+        });
 
-          unloadSpinner();
+        unloadSpinner();
     }
     else {
         unloadSpinner();
@@ -83,16 +75,105 @@ function getFacilitator() {
             "It's cold here... :(",
             "Is anyone there?",
             'question'
-          )
+        )
     }
 }
 
-function loadSpinner(){
-    document.getElementById("btnDefine").setAttribute("disabled", true);
+// Events / Clicks
+
+function btnAll_Click() {
+    var buttons = getAllButtons();
+    buttons.forEach((item, index) => {
+        $(item).removeAttr("class");
+        $(item).addClass("btn");
+        $(item).addClass("btn-primary");
+    });
+}
+
+function btnOnlyDevs_Click() {
+    var buttons = getAllButtons();
+    buttons.forEach((item, index) => {
+        var role = $(item).prop("role");
+        if(role.toLowerCase() == "dev")
+        {
+            $(item).removeAttr("class");
+            $(item).addClass("btn");
+            $(item).addClass("btn-primary");
+        }
+        else{
+            $(item).removeAttr("class");
+            $(item).addClass("btn");
+            $(item).addClass("btn-default");
+        }
+        
+    });
+}
+
+function btnOnlyNonDevs_Click() {
+    var buttons = getAllButtons();
+    buttons.forEach((item, index) => {
+        var role = $(item).prop("role");
+        if(role.toLowerCase() != "dev")
+        {
+            $(item).removeAttr("class");
+            $(item).addClass("btn");
+            $(item).addClass("btn-primary");
+        }
+        else{
+            $(item).removeAttr("class");
+            $(item).addClass("btn");
+            $(item).addClass("btn-default");
+        }
+        
+    });
+}
+
+function btnFacilitatorButtonClick() {
+    var isEnabled = $(this).hasClass("btn-primary");
+
+    if (isEnabled) {
+        $(this).removeClass("btn-primary");
+        $(this).addClass("btn-default");
+        $(this).css("cursor", "not-allowed");
+    }
+    else {
+        $(this).removeClass("btn-default");
+        $(this).addClass("btn-primary");
+        $(this).css("cursor", "pointer");
+    }
+}
+
+function btnDefineFacilitator_Click() {
+
+    loadSpinner();
+
+    window.setTimeout(getFacilitator, 500);
+
+
+}
+
+// Sort Array
+function SortByName(a, b) {
+    var aName = a.Name.toLowerCase();
+    var bName = b.Name.toLowerCase();
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+}
+
+// Get All Buttons
+function getAllButtons(){
+    let buttons = document
+    .getElementById("facilitatorsList")
+    .querySelectorAll('button');
+    return buttons;
+}
+
+// Spinner Functions
+function loadSpinner() {
+    document.getElementById("btnDefineFacilitator").setAttribute("disabled", true);
     document.getElementById("spinner").style.display = "inline-flex";
 }
 
-function unloadSpinner(){
-    document.getElementById("btnDefine").removeAttribute("disabled");
+function unloadSpinner() {
+    document.getElementById("btnDefineFacilitator").removeAttribute("disabled");
     document.getElementById("spinner").style.display = "none";
 }

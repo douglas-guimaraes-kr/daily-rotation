@@ -1,10 +1,15 @@
 <html>
 
 <head>
+
+    <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
@@ -25,7 +30,7 @@
 
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Daily Rotation</a>
+            <a class="navbar-brand" href="#">Rotation Tool</a>
         </div>
     </nav>
     <div class="container">
@@ -33,14 +38,18 @@
         <div class="row justify-content-center">
             <div class="col col-md-6">
                 <div class="alert alert-primary">
-                    Facilitators
+                    Members
                 </div>
-                <div id="facilitatorsList" style="padding: 5px;">
+                <button id="btnAll" onclick="btnAll_Click()" class="btn btn-outline-primary" style="width: 100px;">All</button>
+                <button id="btnOnlyDevs" onclick="btnOnlyDevs_Click()" class="btn btn-outline-dark" style="width: 100px;">Devs</button>
+                <button id="btnOnlyNonDevs" onclick="btnOnlyNonDevs_Click()" class="btn btn-outline-secondary" style="width: 100px;">Non-Devs</button>
+                <hr>
+                <div id="facilitatorsList" class="row" style="padding: 5px;">
 
                 </div>
                 <hr>
                 <div class="text-end">
-                    <button id="btnDefine" class="btn btn-success" type="button" onclick="facilitatorOnClick()" style="width: 100px;">
+                    <button id="btnDefineFacilitator" class="btn btn-outline-success" type="button" onclick="btnDefineFacilitator_Click()" style="width: 100px;">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner" style="display: none;"  ></span>
                         Define
                     </button>
