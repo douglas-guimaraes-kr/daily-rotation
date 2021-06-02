@@ -31,7 +31,6 @@ function init() {
         var div = document.createElement('div');
         $(div).addClass("col col-md-3");
         div.appendChild(button);
-        // div.appendChild(label);
 
         // final div
         facilitatorsDiv.appendChild(div);
@@ -84,9 +83,7 @@ function getFacilitator() {
 function btnAll_Click() {
     var buttons = getAllButtons();
     buttons.forEach((item, index) => {
-        $(item).removeAttr("class");
-        $(item).addClass("btn");
-        $(item).addClass("btn-primary");
+        enabledButton(item);
     });
 }
 
@@ -94,18 +91,13 @@ function btnOnlyDevs_Click() {
     var buttons = getAllButtons();
     buttons.forEach((item, index) => {
         var role = $(item).prop("role");
-        if(role.toLowerCase() == "dev")
-        {
-            $(item).removeAttr("class");
-            $(item).addClass("btn");
-            $(item).addClass("btn-primary");
+        if (role.toLowerCase() == "dev") {
+            enabledButton(item);
         }
-        else{
-            $(item).removeAttr("class");
-            $(item).addClass("btn");
-            $(item).addClass("btn-default");
+        else {
+            disabledButton(item);
         }
-        
+
     });
 }
 
@@ -113,18 +105,13 @@ function btnOnlyNonDevs_Click() {
     var buttons = getAllButtons();
     buttons.forEach((item, index) => {
         var role = $(item).prop("role");
-        if(role.toLowerCase() != "dev")
-        {
-            $(item).removeAttr("class");
-            $(item).addClass("btn");
-            $(item).addClass("btn-primary");
+        if (role.toLowerCase() != "dev") {
+            enabledButton(item);
         }
-        else{
-            $(item).removeAttr("class");
-            $(item).addClass("btn");
-            $(item).addClass("btn-default");
+        else {
+            disabledButton(item);
         }
-        
+
     });
 }
 
@@ -132,14 +119,10 @@ function btnFacilitatorButtonClick() {
     var isEnabled = $(this).hasClass("btn-primary");
 
     if (isEnabled) {
-        $(this).removeClass("btn-primary");
-        $(this).addClass("btn-default");
-        $(this).css("cursor", "not-allowed");
+        disabledButton(this);
     }
     else {
-        $(this).removeClass("btn-default");
-        $(this).addClass("btn-primary");
-        $(this).css("cursor", "pointer");
+        enabledButton(this);
     }
 }
 
@@ -160,10 +143,10 @@ function SortByName(a, b) {
 }
 
 // Get All Buttons
-function getAllButtons(){
+function getAllButtons() {
     let buttons = document
-    .getElementById("facilitatorsList")
-    .querySelectorAll('button');
+        .getElementById("facilitatorsList")
+        .querySelectorAll('button');
     return buttons;
 }
 
@@ -177,3 +160,18 @@ function unloadSpinner() {
     document.getElementById("btnDefineFacilitator").removeAttribute("disabled");
     document.getElementById("spinner").style.display = "none";
 }
+
+function enabledButton(button) {
+    $(button).removeClass("btn-default");
+    $(button).addClass("btn-primary");
+    $(button).css("cursor", "pointer");
+}
+
+function disabledButton(button) {
+    $(button).removeClass("btn-primary");
+    $(button).addClass("btn-default");
+    $(button).css("cursor", "not-allowed");
+}
+
+
+
