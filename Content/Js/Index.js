@@ -4,13 +4,12 @@ function init() {
         { Name: "Douglas", Role: "dev" },
         { Name: "Pavlina", Role: "ux" },
         { Name: "Reginaldo", Role: "sm" },
-        { Name: "Livia", Role: "dev" },
+        { Name: "Priscila", Role: "dev" },
         { Name: "Alisson", Role: "dev" },
-        { Name: "Cristian", Role: "dev" },
         { Name: "Brandon", Role: "tl" },
         { Name: "Djeefther", Role: "dev" },
         { Name: "Nil", Role: "dev" },
-        { Name: "Anton", Role: "dev" }
+        { Name: "Jennifer", Role: "dev" }
     ];
 
     facilitatorsList.sort(SortByName);
